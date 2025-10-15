@@ -13,6 +13,7 @@ import java.util.Map;
 
 @AllArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("/products")
 public class ProductController {
 
