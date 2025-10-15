@@ -7,11 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class RegisterUserRequest {
+public class LoginRequest {
 
-    @NotBlank(message = "Name is required") // "" , " ", laravel required
-    @Size(max = 255, message = "Name must be less than 255 characters")
-    private String name;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email must be valid")

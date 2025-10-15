@@ -1,4 +1,8 @@
 package com.codewithmosh.store.exceptions;
 
-public class OrderNotFoundException {
+public class OrderNotFoundException extends RuntimeException {
+
+    public OrderNotFoundException() {
+        super("Order was not found.");
+    }
 }
