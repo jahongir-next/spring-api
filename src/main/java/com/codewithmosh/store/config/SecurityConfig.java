@@ -57,16 +57,19 @@ public class SecurityConfig {
                         c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // token-based authentication
                 .csrf(AbstractHttpConfigurer::disable) // Disabling CSRF protection
                 .authorizeHttpRequests(c -> c
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/carts/**").permitAll()
                         .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/products/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/products/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll()
                         .requestMatchers(HttpMethod.POST, "/checkout/webhook").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/products/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.PUT, "/products/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore( jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
